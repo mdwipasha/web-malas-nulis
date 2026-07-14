@@ -1,0 +1,18 @@
+{
+    "id": "boss",
+    "name": "Boss Notebook",
+    "brand": "Boss",
+    "category": "school",
+    "country": "Indonesia",
+    "orientation": "portrait",
+    "paperSize": "A4",
+    "spiral": false,
+    "header": true,
+    "checkbox": true,
+    "footer": true,
+    "defaultInk": "blue-ballpoint",
+    "defaultFont": "student-neat",
+    "lineSpacing": 56,
+    "paperColor": "#FAFAF8",
+    "version": "1.0.0"
+}
