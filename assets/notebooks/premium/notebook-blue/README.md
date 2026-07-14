@@ -1,39 +1,54 @@
-# Premium Blue Notebook — Asset Pack
+# Premium Blue Notebook
 
 ## Overview
 
-**Brand:** Premium  
-**Country:** Indonesia  
-**Category:** Premium  
-**Paper Size:** A4 (Portrait)  
-**Render Mode:** Photo
+**Brand:** Premium
+**Country:** Indonesia
+**Category:** premium
+**Paper Size:** A4
+**Orientation:** portrait
+**Render Mode:** photo
 
 ## Description
 
-A premium quality blue-tinted ruled notebook with a refined aesthetic. The subtle blue tone creates a calm, focused writing environment. The high-quality paper stock accepts ink smoothly, and the consistent fine ruling guides the hand perfectly. Ideal for creative writing, journaling, and professional correspondence.
+A premium quality blue-tinted ruled notebook with a refined aesthetic. The subtle blue tone creates a calm, focused writing environment. Perfect for creative writing, journaling, and professional correspondence.
 
-## Asset Pack Contents
+## Asset Pack
 
-| File | Description |
-|------|-------------|
-| `page_01.jpg` | Full-resolution scan of one notebook page |
-| `metadata.json` | Notebook identification and properties |
-| `write-area.json` | Computed writable area boundaries (px) |
-| `lines.json` | Ruled line detection data |
-| `README.md` | This file |
+| File | Purpose |
+| --- | --- |
+| `page_01.jpg` | Source notebook page image |
+| `thumbnail.webp` | 200x260 selector thumbnail |
+| `preview.webp` | 400x520 notebook preview |
+| `metadata.json` | Notebook identity and rendering metadata |
+| `write-area.json` | Writable area boundaries in source-image pixels |
+| `lines.json` | Ruled-line detection result |
+| `mask.png` | Writable area mask, white for writable pixels and black for protected pixels |
 
 ## Write Area
 
 ```json
-{ "top": 50, "bottom": 35, "left": 45, "right": 35, "usableWidth": 600, "usableHeight": 795 }
+{
+  "top": 27,
+  "bottom": 50,
+  "left": 32,
+  "right": 29,
+  "header": 0,
+  "footer": 0,
+  "usableWidth": 675,
+  "usableHeight": 904
+}
 ```
 
-## Line Data
+## Lines
 
-- **Total lines:** 26 | **Line spacing:** 30px | **Line color:** #98bfe0
-
-## Usage
-
-```typescript
-const blue = await getNotebookById('notebook-blue');
+```json
+{
+  "lineCount": 21,
+  "lineSpacing": 24,
+  "baseline": 51,
+  "firstLine": 51,
+  "lastLine": 931,
+  "color": "#b89f77"
+}
 ```

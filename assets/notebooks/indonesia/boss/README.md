@@ -1,64 +1,54 @@
-# Boss Notebook — Asset Pack
+# Boss Notebook
 
 ## Overview
 
-**Brand:** Boss  
-**Country:** Indonesia  
-**Category:** School (SMA/SMP)  
-**Paper Size:** A4 (Portrait)  
-**Render Mode:** Photo
+**Brand:** Boss
+**Country:** Indonesia
+**Category:** school
+**Paper Size:** A4
+**Orientation:** portrait
+**Render Mode:** photo
 
 ## Description
 
-The Boss Notebook is an iconic Indonesian school notebook used by millions of students across SMA (senior high school) and SMP (junior high school). It features a distinctive header block at the top for writing student information (Name, Class, Number, Date), left-side checkboxes aligned with each ruled line for tracking completed items, and a warm paper tone printed on quality paper stock.
+Indonesian SMA/SMP school notebook by Boss brand. Features a header section for student name, class number and date, plus left-side checkboxes on every line. Warm wooden desk aesthetic.
 
-## Asset Pack Contents
+## Asset Pack
 
-| File | Description |
-|------|-------------|
-| `page_01.jpg` | Full-resolution scan of one notebook page |
-| `metadata.json` | Notebook identification and properties |
-| `write-area.json` | Computed writable area boundaries (px) |
-| `lines.json` | Ruled line detection data (count, spacing, positions) |
-| `thumbnail.webp` | 200×260 thumbnail for UI selectors |
-| `preview.webp` | 400×520 preview for template browser |
-| `mask.png` | Binary mask: white = writable, black = margins/header |
-| `README.md` | This file |
+| File | Purpose |
+| --- | --- |
+| `page_01.jpg` | Source notebook page image |
+| `thumbnail.webp` | 200x260 selector thumbnail |
+| `preview.webp` | 400x520 notebook preview |
+| `metadata.json` | Notebook identity and rendering metadata |
+| `write-area.json` | Writable area boundaries in source-image pixels |
+| `lines.json` | Ruled-line detection result |
+| `mask.png` | Writable area mask, white for writable pixels and black for protected pixels |
 
 ## Write Area
 
 ```json
 {
-  "top": 110,       "bottom": 30,
-  "left": 68,       "right": 30,
-  "header": 110,    "footer": 30,
-  "usableWidth": 582, "usableHeight": 740
+  "top": 126,
+  "bottom": 50,
+  "left": 53,
+  "right": 24,
+  "header": 126,
+  "footer": 50,
+  "usableWidth": 454,
+  "usableHeight": 544
 }
 ```
 
-## Line Data
+## Lines
 
-- **Total lines:** 26
-- **Line spacing:** 28px
-- **First line Y:** 138px (after header)
-- **Last line Y:** 838px
-- **Line color:** #c0cce0
-
-## Rendering Notes
-
-- The header area (top 110px) displays: Nama / Kelas / No. / Date
-- Checkboxes appear at x=36px, centered on each line baseline
-- Handwriting starts at x=68px (after checkbox column)
-- Template respects the warm paper texture of the original scan
-- Default ink: Blue ballpoint (`blue-ballpoint`)
-- Default handwriting style: Neat student (`student-neat`)
-
-## Usage
-
-```typescript
-import { getNotebookById } from '@/lib/notebook-api';
-
-const boss = await getNotebookById('boss');
-// boss.writeArea.left === 68
-// boss.lines.lineSpacing === 28
+```json
+{
+  "lineCount": 30,
+  "lineSpacing": 16,
+  "baseline": 142,
+  "firstLine": 142,
+  "lastLine": 670,
+  "color": "#ab9b98"
+}
 ```

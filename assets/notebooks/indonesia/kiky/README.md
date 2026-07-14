@@ -1,39 +1,54 @@
-# Kiky Notebook — Asset Pack
+# Kiky Notebook
 
 ## Overview
 
-**Brand:** Kiky  
-**Country:** Indonesia  
-**Category:** School  
-**Paper Size:** A5 (Portrait)  
-**Render Mode:** Photo
+**Brand:** Kiky
+**Country:** Indonesia
+**Category:** school
+**Paper Size:** A5
+**Orientation:** portrait
+**Render Mode:** photo
 
 ## Description
 
-Kiky is one of Indonesia's most recognizable school notebook brands, found in every stationery shop from Sabang to Merauke. The notebook features simple, clean ruled lines printed on bright white paper. Its affordable price and consistent quality have made it a staple in Indonesian elementary and junior high schools for decades.
+Classic Indonesian school notebook by Kiky. Simple ruled lines, clean design popular in elementary and junior high schools.
 
-## Asset Pack Contents
+## Asset Pack
 
-| File | Description |
-|------|-------------|
-| `page_01.jpg` | Full-resolution scan of one notebook page |
-| `metadata.json` | Notebook identification and properties |
-| `write-area.json` | Computed writable area boundaries (px) |
-| `lines.json` | Ruled line detection data |
-| `README.md` | This file |
+| File | Purpose |
+| --- | --- |
+| `page_01.jpg` | Source notebook page image |
+| `thumbnail.webp` | 200x260 selector thumbnail |
+| `preview.webp` | 400x520 notebook preview |
+| `metadata.json` | Notebook identity and rendering metadata |
+| `write-area.json` | Writable area boundaries in source-image pixels |
+| `lines.json` | Ruled-line detection result |
+| `mask.png` | Writable area mask, white for writable pixels and black for protected pixels |
 
 ## Write Area
 
 ```json
-{ "top": 50, "bottom": 30, "left": 30, "right": 25, "usableWidth": 625, "usableHeight": 800 }
+{
+  "top": 26,
+  "bottom": 64,
+  "left": 32,
+  "right": 29,
+  "header": 0,
+  "footer": 0,
+  "usableWidth": 674,
+  "usableHeight": 903
+}
 ```
 
-## Line Data
+## Lines
 
-- **Total lines:** 30 | **Line spacing:** 26px | **Line color:** #b8d0e8
-
-## Usage
-
-```typescript
-const kiky = await getNotebookById('kiky');
+```json
+{
+  "lineCount": 23,
+  "lineSpacing": 34,
+  "baseline": 60,
+  "firstLine": 60,
+  "lastLine": 929,
+  "color": "#5b5a60"
+}
 ```

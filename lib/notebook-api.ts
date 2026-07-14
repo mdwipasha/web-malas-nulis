@@ -93,6 +93,36 @@ export function getNotebookBrands(): string[] {
   return [...new Set(getAllNotebooks().map((pack) => pack.brand))].sort();
 }
 
+export function getNotebookCountries(): string[] {
+  return [...new Set(getAllNotebooks().map((pack) => pack.country))].sort();
+}
+
 export function getNotebookCountry(id: string): string {
   return getNotebook(id)?.country ?? "";
+}
+
+export function getSpiralNotebooks(): NotebookPack[] {
+  return getAllNotebooks().filter((pack) => pack.spiral);
+}
+
+export function getPortraitNotebooks(): NotebookPack[] {
+  return getAllNotebooks().filter((pack) => pack.orientation === "portrait");
+}
+
+export function getLandscapeNotebooks(): NotebookPack[] {
+  return getAllNotebooks().filter((pack) => pack.orientation === "landscape");
+}
+
+export function getNotebookSummary() {
+  const notebooks = getAllNotebooks();
+
+  return {
+    total: notebooks.length,
+    categories: [...new Set(notebooks.map((pack) => pack.category))].sort(),
+    brands: [...new Set(notebooks.map((pack) => pack.brand))].sort(),
+    countries: [...new Set(notebooks.map((pack) => pack.country))].sort(),
+    spiral: notebooks.filter((pack) => pack.spiral).length,
+    portrait: notebooks.filter((pack) => pack.orientation === "portrait").length,
+    landscape: notebooks.filter((pack) => pack.orientation === "landscape").length,
+  };
 }

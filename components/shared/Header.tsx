@@ -24,8 +24,8 @@ export function Header({ onRandomize, onRegenerate }: HeaderProps) {
         </div>
         <div>
           <h1 className="text-sm font-bold text-[var(--text-primary)] leading-none">
-            WriteBook{" "}
-            <span className="gradient-text">AI</span>
+            Malas{" "}
+            <span className="gradient-text">Nulis</span>
           </h1>
           <p className="text-[10px] text-[var(--text-muted)] leading-tight mt-0.5">
             Realistic handwriting generator

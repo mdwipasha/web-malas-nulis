@@ -1,39 +1,54 @@
-# Sterling Notebook — Asset Pack
+# Sterling Notebook
 
 ## Overview
 
-**Brand:** Sterling  
-**Country:** Indonesia  
-**Category:** Office  
-**Paper Size:** A4 (Portrait)  
-**Render Mode:** Photo
+**Brand:** Sterling
+**Country:** Indonesia
+**Category:** office
+**Paper Size:** A4
+**Orientation:** portrait
+**Render Mode:** photo
 
 ## Description
 
-The Sterling notebook is designed for professional environments — offices, boardrooms, and executive desks across Indonesia. Its premium ruling, high-quality paper stock, and refined aesthetics set it apart from school notebooks. Wide line spacing ensures comfortable writing, while the clean design complements any professional setting.
+Sterling brand professional notebook. High quality ruled paper commonly used in offices and boardrooms across Indonesia.
 
-## Asset Pack Contents
+## Asset Pack
 
-| File | Description |
-|------|-------------|
-| `page_01.jpg` | Full-resolution scan of one notebook page |
-| `metadata.json` | Notebook identification and properties |
-| `write-area.json` | Computed writable area boundaries (px) |
-| `lines.json` | Ruled line detection data |
-| `README.md` | This file |
+| File | Purpose |
+| --- | --- |
+| `page_01.jpg` | Source notebook page image |
+| `thumbnail.webp` | 200x260 selector thumbnail |
+| `preview.webp` | 400x520 notebook preview |
+| `metadata.json` | Notebook identity and rendering metadata |
+| `write-area.json` | Writable area boundaries in source-image pixels |
+| `lines.json` | Ruled-line detection result |
+| `mask.png` | Writable area mask, white for writable pixels and black for protected pixels |
 
 ## Write Area
 
 ```json
-{ "top": 55, "bottom": 40, "left": 50, "right": 35, "usableWidth": 595, "usableHeight": 785 }
+{
+  "top": 97,
+  "bottom": 72,
+  "left": 32,
+  "right": 29,
+  "header": 0,
+  "footer": 0,
+  "usableWidth": 675,
+  "usableHeight": 812
+}
 ```
 
-## Line Data
+## Lines
 
-- **Total lines:** 26 | **Line spacing:** 30px | **Line color:** #c8d0e0
-
-## Usage
-
-```typescript
-const sterling = await getNotebookById('sterling');
+```json
+{
+  "lineCount": 34,
+  "lineSpacing": 21,
+  "baseline": 118,
+  "firstLine": 118,
+  "lastLine": 909,
+  "color": "#847862"
+}
 ```

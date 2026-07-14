@@ -1,10 +1,10 @@
 {
-  "top": 50,
-  "bottom": 30,
-  "left": 30,
-  "right": 25,
+  "top": 26,
+  "bottom": 64,
+  "left": 32,
+  "right": 29,
   "header": 0,
   "footer": 0,
-  "usableWidth": 625,
-  "usableHeight": 800
+  "usableWidth": 674,
+  "usableHeight": 903
 }

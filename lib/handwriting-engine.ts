@@ -1,5 +1,5 @@
 // ============================================================
-// Handwriting Engine — THE CORE of WriteBook AI
+// Handwriting Engine — THE CORE of Malas Nulis
 // Renders text character-by-character with controlled
 // randomness to simulate real human handwriting
 // ============================================================

@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useMemo } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 
 import { useAppState } from "@/hooks/useAppState";
 import { useDebouncedValue } from "@/hooks/useDebounce";
@@ -7,7 +7,11 @@ import { splitTextToPages, computeTextStats } from "@/lib/page-splitter";
 import { getStyle } from "@/lib/styles-config";
 import { getTemplate } from "@/lib/templates-config";
 import { getInkColor } from "@/lib/ink-config";
-import type { RenderOptions } from "@/types";
+import type { NotebookPack, RenderOptions } from "@/types";
+import {
+  fromNotebookTemplateId,
+  notebookPackToTemplate,
+} from "@/lib/notebook-template-adapter";
 
 import { Header } from "@/components/shared/Header";
 import { SidePanel } from "@/components/shared/SidePanel";
@@ -38,10 +42,45 @@ export default function Home() {
   const debouncedText = useDebouncedValue(state.text, 400);
   const debouncedStyle = useDebouncedValue(state.handwritingStyleId, 200);
   const debouncedTemplate = useDebouncedValue(state.templateId, 200);
+  const [notebookPacks, setNotebookPacks] = useState<NotebookPack[]>([]);
+
+  useEffect(() => {
+    let cancelled = false;
+
+    fetch("/api/notebooks")
+      .then((res) => (res.ok ? res.json() : Promise.reject(res)))
+      .then((payload: { notebooks: NotebookPack[] }) => {
+        if (!cancelled) setNotebookPacks(payload.notebooks);
+      })
+      .catch(() => {
+        if (!cancelled) setNotebookPacks([]);
+      });
+
+    return () => {
+      cancelled = true;
+    };
+  }, []);
 
   // Resolve current configs
+  const selectedNotebookId = useMemo(
+    () => fromNotebookTemplateId(debouncedTemplate),
+    [debouncedTemplate]
+  );
+  const selectedNotebookPack = useMemo(
+    () =>
+      selectedNotebookId
+        ? notebookPacks.find((pack) => pack.id === selectedNotebookId)
+        : undefined,
+    [notebookPacks, selectedNotebookId]
+  );
   const currentStyle = getStyle(debouncedStyle);
-  const currentTemplate = getTemplate(debouncedTemplate);
+  const currentTemplate = useMemo(
+    () =>
+      selectedNotebookPack
+        ? notebookPackToTemplate(selectedNotebookPack)
+        : getTemplate(debouncedTemplate),
+    [debouncedTemplate, selectedNotebookPack]
+  );
   const currentInk = getInkColor(state.inkColorId);
 
   // Override font family if custom font is loaded
@@ -80,6 +119,7 @@ export default function Home() {
   const renderOptions: RenderOptions = useMemo(
     () => ({
       template: currentTemplate,
+      notebookPack: selectedNotebookPack,
       style: effectiveStyle,
       inkColor: currentInk,
       effects: state.effects,
@@ -90,6 +130,7 @@ export default function Home() {
     }),
     [
       currentTemplate,
+      selectedNotebookPack,
       effectiveStyle,
       currentInk,
       state.effects,

@@ -1,39 +1,54 @@
-# Minimal Notebook — Asset Pack
+# Minimal Notebook
 
 ## Overview
 
-**Brand:** Generic  
-**Country:** Indonesia  
-**Category:** Classic  
-**Paper Size:** A5 (Portrait)  
-**Render Mode:** Photo
+**Brand:** Generic
+**Country:** Indonesia
+**Category:** spiral
+**Paper Size:** A5
+**Orientation:** portrait
+**Render Mode:** photo
 
 ## Description
 
-A minimalist A5 notebook with tightly-spaced ruled lines and an uncluttered design. The narrow line spacing accommodates more content per page, making it a favorite for dense note-taking, journaling, and academic coursework. Its subtle paper color and fine line weight project a modern, premium aesthetic.
+A minimalist A5 notebook with closely spaced ruled lines. Clean and modern aesthetic suitable for journaling and notes.
 
-## Asset Pack Contents
+## Asset Pack
 
-| File | Description |
-|------|-------------|
-| `page_01.jpg` | Full-resolution scan of one notebook page |
-| `metadata.json` | Notebook identification and properties |
-| `write-area.json` | Computed writable area boundaries (px) |
-| `lines.json` | Ruled line detection data |
-| `README.md` | This file |
+| File | Purpose |
+| --- | --- |
+| `page_01.jpg` | Source notebook page image |
+| `thumbnail.webp` | 200x260 selector thumbnail |
+| `preview.webp` | 400x520 notebook preview |
+| `metadata.json` | Notebook identity and rendering metadata |
+| `write-area.json` | Writable area boundaries in source-image pixels |
+| `lines.json` | Ruled-line detection result |
+| `mask.png` | Writable area mask, white for writable pixels and black for protected pixels |
 
 ## Write Area
 
 ```json
-{ "top": 40, "bottom": 30, "left": 25, "right": 25, "usableWidth": 630, "usableHeight": 810 }
+{
+  "top": 239,
+  "bottom": 87,
+  "left": 32,
+  "right": 29,
+  "header": 0,
+  "footer": 0,
+  "usableWidth": 675,
+  "usableHeight": 655
+}
 ```
 
-## Line Data
+## Lines
 
-- **Total lines:** 33 | **Line spacing:** 24px | **Line color:** #c0c8d8
-
-## Usage
-
-```typescript
-const minimal = await getNotebookById('minimal');
+```json
+{
+  "lineCount": 22,
+  "lineSpacing": 26,
+  "baseline": 265,
+  "firstLine": 265,
+  "lastLine": 894,
+  "color": "#cac7bf"
+}
 ```

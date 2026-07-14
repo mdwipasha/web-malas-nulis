@@ -1,5 +1,5 @@
 // ============================================================
-// WriteBook AI — Core TypeScript Types
+// Malas Nulis — Core TypeScript Types
 // ============================================================
 
 export type InkColor = {
@@ -26,6 +26,8 @@ export type HandwritingStyle = {
   wordSpacingJitter: number; // px
   slant: number; // degrees
 };
+
+export type Handwriting = HandwritingStyle;
 
 export type NotebookTemplate = {
   id: string;
@@ -126,6 +128,7 @@ export type AppState = {
 
 export type RenderOptions = {
   template: NotebookTemplate;
+  notebookPack?: NotebookPack;
   style: HandwritingStyle;
   inkColor: InkColor;
   effects: AppState["effects"];
@@ -225,6 +228,8 @@ export type NotebookPack = {
   maskPath?: string;       // URL path to mask.png (if available)
   folderPath: string;      // physical folder path (used server-side only)
 };
+
+export type Notebook = NotebookPack;
 
 /**
  * Camera simulation preset.

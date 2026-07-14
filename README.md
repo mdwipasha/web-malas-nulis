@@ -1,13 +1,13 @@
-# WriteBook AI — Realistic Handwriting Generator
+# Malas Nulis — Realistic Handwriting Generator
 
-WriteBook AI is a premium, production-ready SaaS web application designed to simulate realistic handwriting on virtual notebook paper. Built with **Next.js 15 (App Router)**, **React 19**, **TypeScript**, and **Tailwind CSS v4**, this application translates standard typed text into organic, natural-looking handwriting that looks physically written rather than computer-generated.
+Malas Nulis is a premium, production-ready SaaS web application designed to simulate realistic handwriting on virtual notebook paper. Built with **Next.js 15 (App Router)**, **React 19**, **TypeScript**, and **Tailwind CSS v4**, this application translates standard typed text into organic, natural-looking handwriting that looks physically written rather than computer-generated.
 
 ---
 
 ## 🌟 Key Features
 
 ### 1. Advanced Handwriting Simulation Engine (`lib/handwriting-engine.ts`)
-Unlike simple script-font displays, WriteBook AI runs a complex procedural rendering engine on an HTML Canvas:
+Unlike simple script-font displays, Malas Nulis runs a complex procedural rendering engine on an HTML Canvas:
 * **Character-Level Jitter**: Adds natural variation to letter spacing, rotation/angle drifts, and baseline alignments.
 * **Stroke Pressure Simulation**: Simulates the variable thickness of ink caused by the natural changing pressure of a human hand.
 * **Ink Flow Depletion & Fading**: Mimics the dry-down of a pen as ink is used up along a line, resetting ("re-inking") at the start of each new line.

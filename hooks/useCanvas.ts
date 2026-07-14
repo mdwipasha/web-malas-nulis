@@ -3,6 +3,7 @@ import { useEffect, useRef, useCallback, useState } from "react";
 import type { RenderOptions, WritingPage } from "@/types";
 import { drawPaper, applyPaperEffects } from "@/lib/paper-engine";
 import { renderHandwritingPage, renderNotebookHeader } from "@/lib/handwriting-engine";
+import { notebookRenderer } from "@/engines/notebook";
 import {
   PAGE_WIDTH_PX,
   PAGE_HEIGHT_PX,
@@ -41,6 +42,17 @@ export function useCanvas(
     if (!ctx) return;
 
     try {
+      if (options.notebookPack) {
+        await notebookRenderer.render(
+          canvas,
+          options.notebookPack,
+          options,
+          currentPage.text,
+          scale
+        );
+        return;
+      }
+
       // 1. Draw paper (desk + notebook)
       drawPaper(ctx, options.template, canvasW, canvasH, options.seed);
 

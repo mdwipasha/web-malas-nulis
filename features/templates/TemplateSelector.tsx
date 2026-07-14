@@ -1,7 +1,9 @@
 "use client";
-import React from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { NOTEBOOK_TEMPLATES, getTemplatesByCategory } from "@/lib/templates-config";
+import React, { useEffect, useMemo, useState } from "react";
+import { motion } from "framer-motion";
+import { getTemplatesByCategory } from "@/lib/templates-config";
+import type { NotebookPack, NotebookTemplate } from "@/types";
+import { notebookPackToTemplate, toNotebookTemplateId } from "@/lib/notebook-template-adapter";
 
 interface TemplateSelectorProps {
   selectedId: string;
@@ -9,14 +11,27 @@ interface TemplateSelectorProps {
 }
 
 // Mini paper preview renderer
-function TemplateMiniPreview({ template }: { template: (typeof NOTEBOOK_TEMPLATES)[0] }) {
+function TemplateMiniPreview({
+  template,
+  thumbnailPath,
+}: {
+  template: NotebookTemplate;
+  thumbnailPath?: string;
+}) {
   return (
     <div
       className="w-full aspect-[3/4] relative overflow-hidden rounded-sm"
       style={{ background: template.paperColor }}
     >
+      {thumbnailPath && (
+        <div
+          className="absolute inset-0 bg-cover bg-top"
+          style={{ backgroundImage: `url(${thumbnailPath})` }}
+        />
+      )}
+
       {/* Grid lines */}
-      {template.hasGrid && template.gridSize && (
+      {!thumbnailPath && template.hasGrid && template.gridSize && (
         <>
           {Array.from({ length: 8 }).map((_, i) => (
             <div
@@ -46,7 +61,7 @@ function TemplateMiniPreview({ template }: { template: (typeof NOTEBOOK_TEMPLATE
       )}
 
       {/* Ruled lines */}
-      {template.hasLines &&
+      {!thumbnailPath && template.hasLines &&
         Array.from({ length: 8 }).map((_, i) => (
           <div
             key={`line-${i}`}
@@ -61,7 +76,7 @@ function TemplateMiniPreview({ template }: { template: (typeof NOTEBOOK_TEMPLATE
         ))}
 
       {/* Margin line */}
-      {template.hasMargin && (
+      {!thumbnailPath && template.hasMargin && (
         <div
           className="absolute h-full"
           style={{
@@ -74,7 +89,7 @@ function TemplateMiniPreview({ template }: { template: (typeof NOTEBOOK_TEMPLATE
       )}
 
       {/* Hole punches */}
-      {template.hasHoles && (
+      {!thumbnailPath && template.hasHoles && (
         <>
           {[25, 50, 75].map((y) => (
             <div
@@ -95,7 +110,7 @@ function TemplateMiniPreview({ template }: { template: (typeof NOTEBOOK_TEMPLATE
       )}
 
       {/* Simulated text lines */}
-      {Array.from({ length: 5 }).map((_, i) => (
+      {!thumbnailPath && Array.from({ length: 5 }).map((_, i) => (
         <div
           key={`text-${i}`}
           className="absolute rounded-full"
@@ -115,10 +130,81 @@ function TemplateMiniPreview({ template }: { template: (typeof NOTEBOOK_TEMPLATE
 }
 
 export function TemplateSelector({ selectedId, onSelect }: TemplateSelectorProps) {
+  const [notebookPacks, setNotebookPacks] = useState<NotebookPack[]>([]);
   const byCategory = getTemplatesByCategory();
+  const assetPackTemplates = useMemo(
+    () =>
+      notebookPacks.map((pack) => ({
+        pack,
+        template: notebookPackToTemplate(pack),
+      })),
+    [notebookPacks]
+  );
+
+  useEffect(() => {
+    let cancelled = false;
+    let retryTimer: ReturnType<typeof setTimeout> | undefined;
+
+    const loadNotebooks = (attempt = 0) => {
+      fetch("/api/notebooks")
+        .then((res) => (res.ok ? res.json() : Promise.reject(res)))
+        .then((payload: { notebooks: NotebookPack[] }) => {
+          if (!cancelled) setNotebookPacks(payload.notebooks);
+        })
+        .catch(() => {
+          if (cancelled) return;
+          if (attempt < 3) {
+            retryTimer = setTimeout(() => loadNotebooks(attempt + 1), 1000);
+            return;
+          }
+          setNotebookPacks([]);
+        });
+    };
+
+    loadNotebooks();
+
+    return () => {
+      cancelled = true;
+      if (retryTimer) clearTimeout(retryTimer);
+    };
+  }, []);
 
   return (
     <div className="space-y-4">
+      {assetPackTemplates.length > 0 && (
+        <div>
+          <div className="control-label mb-2 px-1">Asset Packs</div>
+          <div className="grid grid-cols-2 gap-2">
+            {assetPackTemplates.map(({ pack, template }) => {
+              const templateId = toNotebookTemplateId(pack.id);
+
+              return (
+                <motion.div
+                  key={templateId}
+                  className={`template-card ${selectedId === templateId ? "active" : ""}`}
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  onClick={() => onSelect(templateId)}
+                >
+                  <TemplateMiniPreview
+                    template={template}
+                    thumbnailPath={pack.thumbnailPath ?? pack.previewPath ?? pack.pagePath}
+                  />
+                  <div
+                    className="px-2 py-1.5 text-center"
+                    style={{ background: "var(--bg-card)" }}
+                  >
+                    <p className="text-xs font-medium text-[var(--text-secondary)] truncate">
+                      {template.label}
+                    </p>
+                  </div>
+                </motion.div>
+              );
+            })}
+          </div>
+        </div>
+      )}
+
       {Object.entries(byCategory).map(([category, templates]) => (
         <div key={category}>
           <div className="control-label mb-2 px-1">{category}</div>

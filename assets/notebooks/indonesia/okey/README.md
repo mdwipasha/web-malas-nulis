@@ -1,39 +1,54 @@
-# Okey Notebook — Asset Pack
+# Okey Notebook
 
 ## Overview
 
-**Brand:** Okey  
-**Country:** Indonesia  
-**Category:** School  
-**Paper Size:** A5 (Portrait)  
-**Render Mode:** Photo
+**Brand:** Okey
+**Country:** Indonesia
+**Category:** school
+**Paper Size:** A5
+**Orientation:** portrait
+**Render Mode:** photo
 
 ## Description
 
-The Okey notebook is a classic of Indonesian elementary schooling. With wide-ruled lines and soft paper, it is specifically designed for younger students still developing their handwriting. The warm paper tone and robust binding make it a reliable daily companion in classrooms across the archipelago.
+Okey brand notebook — a staple of Indonesian elementary schools. Wide ruled lines and soft paper tone.
 
-## Asset Pack Contents
+## Asset Pack
 
-| File | Description |
-|------|-------------|
-| `page_01.jpg` | Full-resolution scan of one notebook page |
-| `metadata.json` | Notebook identification and properties |
-| `write-area.json` | Computed writable area boundaries (px) |
-| `lines.json` | Ruled line detection data |
-| `README.md` | This file |
+| File | Purpose |
+| --- | --- |
+| `page_01.jpg` | Source notebook page image |
+| `thumbnail.webp` | 200x260 selector thumbnail |
+| `preview.webp` | 400x520 notebook preview |
+| `metadata.json` | Notebook identity and rendering metadata |
+| `write-area.json` | Writable area boundaries in source-image pixels |
+| `lines.json` | Ruled-line detection result |
+| `mask.png` | Writable area mask, white for writable pixels and black for protected pixels |
 
 ## Write Area
 
 ```json
-{ "top": 50, "bottom": 30, "left": 30, "right": 25, "usableWidth": 625, "usableHeight": 800 }
+{
+  "top": 68,
+  "bottom": 65,
+  "left": 32,
+  "right": 29,
+  "header": 0,
+  "footer": 0,
+  "usableWidth": 674,
+  "usableHeight": 913
+}
 ```
 
-## Line Data
+## Lines
 
-- **Total lines:** 30 | **Line spacing:** 26px | **Line color:** #b8d0e8
-
-## Usage
-
-```typescript
-const okey = await getNotebookById('okey');
+```json
+{
+  "lineCount": 31,
+  "lineSpacing": 29,
+  "baseline": 97,
+  "firstLine": 97,
+  "lastLine": 981,
+  "color": "#ababab"
+}
 ```

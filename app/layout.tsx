@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "WriteBook AI — Realistic Handwriting Generator",
+  title: "Malas Nulis — Realistic Handwriting Generator",
   description:
     "Transform your text into beautiful, realistic handwritten notes on notebook paper. Multiple styles, templates, and export options.",
   keywords: [
@@ -14,7 +14,7 @@ export const metadata: Metadata = {
     "handwriting AI",
   ],
   openGraph: {
-    title: "WriteBook AI",
+    title: "Malas Nulis",
     description: "Generate realistic handwritten notes on notebook paper",
     type: "website",
   },

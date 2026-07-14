@@ -6,6 +6,7 @@
 import type { WritingPage, ExportFormat, ExportQuality, RenderOptions } from "@/types";
 import { drawPaper, applyPaperEffects } from "@/lib/paper-engine";
 import { renderHandwritingPage, renderNotebookHeader } from "@/lib/handwriting-engine";
+import { notebookRenderer } from "@/engines/notebook";
 import {
   DPI_SCALE,
   PAGE_WIDTH_PX,
@@ -32,6 +33,11 @@ export async function renderPageToCanvas(
   canvas.height = canvasH;
 
   const ctx = canvas.getContext("2d", { alpha: false })!;
+
+  if (options.notebookPack) {
+    await notebookRenderer.render(canvas, options.notebookPack, options, pageText, scale);
+    return canvas;
+  }
 
   // Step 1: Draw paper (desk + notebook page)
   drawPaper(ctx, options.template, canvasW, canvasH, options.seed);
