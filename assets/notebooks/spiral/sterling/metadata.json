@@ -1,0 +1,20 @@
+{
+  "id": "sterling",
+  "name": "Sterling Notebook",
+  "brand": "Sterling",
+  "category": "office",
+  "country": "Indonesia",
+  "orientation": "portrait",
+  "paperSize": "A4",
+  "spiral": false,
+  "header": false,
+  "footer": false,
+  "checkbox": false,
+  "defaultInk": "black",
+  "defaultFont": "teacher",
+  "lineSpacing": 30,
+  "paperColor": "#FEFEFE",
+  "version": "1.0.0",
+  "description": "Sterling brand professional notebook. High quality ruled paper commonly used in offices and boardrooms across Indonesia.",
+  "renderMode": "photo"
+}

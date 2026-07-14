@@ -1,0 +1,20 @@
+{
+  "id": "amigo",
+  "name": "Amigo Spiral",
+  "brand": "Amigo",
+  "category": "spiral",
+  "country": "Indonesia",
+  "orientation": "portrait",
+  "paperSize": "A5",
+  "spiral": true,
+  "header": false,
+  "footer": false,
+  "checkbox": false,
+  "defaultInk": "black",
+  "defaultFont": "neat-student",
+  "lineSpacing": 26,
+  "paperColor": "#FEFEFE",
+  "version": "1.0.0",
+  "description": "Amigo spiral-bound notebook. Clean ruled lines with spiral binding visible on the left edge. Popular for notes and coursework.",
+  "renderMode": "photo"
+}

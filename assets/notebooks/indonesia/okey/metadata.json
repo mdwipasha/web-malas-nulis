@@ -1,0 +1,20 @@
+{
+  "id": "okey",
+  "name": "Okey Notebook",
+  "brand": "Okey",
+  "category": "school",
+  "country": "Indonesia",
+  "orientation": "portrait",
+  "paperSize": "A5",
+  "spiral": false,
+  "header": false,
+  "footer": false,
+  "checkbox": false,
+  "defaultInk": "blue",
+  "defaultFont": "student-neat",
+  "lineSpacing": 26,
+  "paperColor": "#FAFAFA",
+  "version": "1.0.0",
+  "description": "Okey brand notebook — a staple of Indonesian elementary schools. Wide ruled lines and soft paper tone.",
+  "renderMode": "photo"
+}

@@ -148,7 +148,7 @@ export function SidePanel({
                               border: "1px solid var(--border)",
                               color: "var(--text-primary)",
                             }}
-                            value={(state.headerInfo as any)[field] || ""}
+                            value={state.headerInfo[field] || ""}
                             onChange={(e) => onHeaderInfoChange?.(field, e.target.value)}
                             placeholder={placeholder}
                           />

@@ -167,10 +167,6 @@ function renderLine(
 
   // Line-level randomness: slight overall line baseline drift
   const lineBaselineDrift = rngGaussian(rng, 0, style.baselineRange * scale * 0.3);
-  // Line-level angle: slight tilt per line
-  const lineAngle = rngGaussian(rng, 0, 0.003 * style.shakiness);
-  let angleAccum = lineAngle;
-
   // Track ink level (starts fresh each line, depletes slightly)
   let inkLevel = 1.0;
 

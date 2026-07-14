@@ -1,0 +1,20 @@
+{
+  "id": "kiky",
+  "name": "Kiky Notebook",
+  "brand": "Kiky",
+  "category": "school",
+  "country": "Indonesia",
+  "orientation": "portrait",
+  "paperSize": "A5",
+  "spiral": false,
+  "header": false,
+  "footer": false,
+  "checkbox": false,
+  "defaultInk": "blue",
+  "defaultFont": "student-neat",
+  "lineSpacing": 26,
+  "paperColor": "#FEFEFE",
+  "version": "1.0.0",
+  "description": "Classic Indonesian school notebook by Kiky. Simple ruled lines, clean design popular in elementary and junior high schools.",
+  "renderMode": "photo"
+}

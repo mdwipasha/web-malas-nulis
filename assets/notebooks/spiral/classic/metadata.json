@@ -1,0 +1,20 @@
+{
+  "id": "classic-spiral",
+  "name": "Classic Spiral",
+  "brand": "Generic",
+  "category": "spiral",
+  "country": "Indonesia",
+  "orientation": "portrait",
+  "paperSize": "A4",
+  "spiral": true,
+  "header": false,
+  "footer": false,
+  "checkbox": false,
+  "defaultInk": "blue",
+  "defaultFont": "neat-student",
+  "lineSpacing": 28,
+  "paperColor": "#FFFFFF",
+  "version": "1.0.0",
+  "description": "Classic A4 spiral-bound notebook with standard ruled lines. A universal notebook type used across schools and offices.",
+  "renderMode": "photo"
+}

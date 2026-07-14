@@ -1,0 +1,20 @@
+{
+  "id": "minimal",
+  "name": "Minimal Notebook",
+  "brand": "Generic",
+  "category": "spiral",
+  "country": "Indonesia",
+  "orientation": "portrait",
+  "paperSize": "A5",
+  "spiral": false,
+  "header": false,
+  "footer": false,
+  "checkbox": false,
+  "defaultInk": "black",
+  "defaultFont": "elegant",
+  "lineSpacing": 24,
+  "paperColor": "#FAFAFA",
+  "version": "1.0.0",
+  "description": "A minimalist A5 notebook with closely spaced ruled lines. Clean and modern aesthetic suitable for journaling and notes.",
+  "renderMode": "photo"
+}
