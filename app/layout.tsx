@@ -26,8 +26,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className="dark">
+    <html lang="en" suppressHydrationWarning>
       <head>
+        {/* Set dark mode immediately to prevent flash of wrong theme */}
+        <script dangerouslySetInnerHTML={{ __html: "document.documentElement.classList.add('dark')" }} />
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />

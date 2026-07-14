@@ -43,9 +43,12 @@ export type NotebookTemplate = {
   hasMargin: boolean;
   hasGrid: boolean;
   hasHoles: boolean;
+  hasHeader?: boolean; // special header section (like boss notebook)
+  hasCheckboxes?: boolean; // left-side checkboxes
   gridSize?: number;
   paperTexture: "clean" | "rough" | "aged" | "smooth";
   shadowIntensity: number; // 0-1
+  deskColor?: string; // custom desk/background color
   description: string;
 };
 
@@ -67,15 +70,25 @@ export type WritingPage = {
   seed: number;
 };
 
+export type HeaderInfo = {
+  name: string;
+  class: string;
+  no: string;
+  date: string;
+};
+
 export type AppState = {
   // Text
   text: string;
-  
+
+  // Header info for notebook templates
+  headerInfo: HeaderInfo;
+
   // Style choices
   handwritingStyleId: string;
   templateId: string;
   inkColorId: string;
-  
+
   // Paper effects
   effects: {
     noise: boolean;
@@ -87,26 +100,26 @@ export type AppState = {
     scanner: boolean;
     camera: boolean;
   };
-  
+
   // Preview
   zoom: number;
   currentPage: number;
   isFullscreen: boolean;
   isDarkMode: boolean;
-  
+
   // Pages
   pages: WritingPage[];
-  
+
   // Export
   exportFormat: ExportFormat;
   exportQuality: ExportQuality;
-  
+
   // Custom font
   customFont: {
     name: string;
     url: string;
   } | null;
-  
+
   // Randomization seed
   seed: number;
 };
@@ -120,6 +133,7 @@ export type RenderOptions = {
   scale?: number;
   text: string;
   customFontUrl?: string;
+  headerInfo?: HeaderInfo;
 };
 
 export type PageSplitResult = {

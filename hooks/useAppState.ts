@@ -1,6 +1,6 @@
 "use client";
 import { useState, useCallback, useEffect } from "react";
-import type { AppState, ExportFormat, ExportQuality } from "@/types";
+import type { AppState, ExportFormat, ExportQuality, HeaderInfo } from "@/types";
 import { DEFAULT_STYLE_ID } from "@/lib/styles-config";
 import { DEFAULT_TEMPLATE_ID } from "@/lib/templates-config";
 import { DEFAULT_INK_ID } from "@/lib/ink-config";
@@ -18,6 +18,12 @@ WriteBook AI transforms your typed text into realistic handwriting that looks li
 export function useAppState() {
   const [state, setState] = useState<AppState>({
     text: DEFAULT_TEXT,
+    headerInfo: {
+      name: "",
+      class: "",
+      no: "",
+      date: "",
+    },
     handwritingStyleId: DEFAULT_STYLE_ID,
     templateId: DEFAULT_TEMPLATE_ID,
     inkColorId: DEFAULT_INK_ID,
@@ -34,7 +40,7 @@ export function useAppState() {
     zoom: 1,
     currentPage: 0,
     isFullscreen: false,
-    isDarkMode: true, // Default to dark mode since Next.js sets class="dark" in HTML by default
+    isDarkMode: true,
     pages: [],
     exportFormat: "png",
     exportQuality: "web",
@@ -79,6 +85,13 @@ export function useAppState() {
 
   const toggleDarkMode = useCallback(() => {
     setState((prev) => ({ ...prev, isDarkMode: !prev.isDarkMode }));
+  }, []);
+
+  const updateHeaderInfo = useCallback((field: keyof HeaderInfo, value: string) => {
+    setState((prev) => ({
+      ...prev,
+      headerInfo: { ...prev.headerInfo, [field]: value },
+    }));
   }, []);
 
   const updatePages = useCallback((pages: AppState["pages"]) => {
@@ -126,6 +139,7 @@ export function useAppState() {
   return {
     state,
     updateText,
+    updateHeaderInfo,
     updateStyle,
     updateTemplate,
     updateInk,

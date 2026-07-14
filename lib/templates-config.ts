@@ -285,9 +285,37 @@ export const NOTEBOOK_TEMPLATES: NotebookTemplate[] = [
     shadowIntensity: 0.25,
     description: "Standard homework assignment sheet",
   },
+  // ============================================================
+  // Boss Notebook — Indonesian SMA/SMP style
+  // Exactly like the photo: checkboxes, header, warm desk
+  // ============================================================
+  {
+    id: "boss-notebook",
+    label: "Boss Notebook (Indonesia)",
+    category: "Indonesia",
+    paperColor: "#ffffff",
+    lineColor: "#c0cce0",
+    marginColor: "#e0e0e8",
+    lineSpacing: 28,
+    marginLeft: 68,
+    marginRight: 30,
+    marginTop: 110,  // big header area at top
+    marginBottom: 30,
+    hasLines: true,
+    hasMargin: false,
+    hasGrid: false,
+    hasHoles: false,
+    hasHeader: true,
+    hasCheckboxes: true,
+    paperTexture: "smooth",
+    shadowIntensity: 0.35,
+    deskColor: "#c9a96e", // warm wooden desk
+    description: "Indonesian SMA boss notebook — checkboxes, header, wooden desk",
+  },
 ];
 
-export const DEFAULT_TEMPLATE_ID = "classic-white";
+export const DEFAULT_TEMPLATE_ID = "boss-notebook";
+
 
 export const getTemplate = (id: string): NotebookTemplate =>
   NOTEBOOK_TEMPLATES.find((t) => t.id === id) ?? NOTEBOOK_TEMPLATES[0];

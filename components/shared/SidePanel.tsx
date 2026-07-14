@@ -35,6 +35,7 @@ const TABS: { id: TabId; label: string; icon: React.ElementType }[] = [
 interface SidePanelProps {
   state: AppState;
   onTextChange: (text: string) => void;
+  onHeaderInfoChange?: (field: "name" | "class" | "no" | "date", value: string) => void;
   onStyleChange: (id: string) => void;
   onTemplateChange: (id: string) => void;
   onInkChange: (id: string) => void;
@@ -52,6 +53,7 @@ interface SidePanelProps {
 export function SidePanel({
   state,
   onTextChange,
+  onHeaderInfoChange,
   onStyleChange,
   onTemplateChange,
   onInkChange,
@@ -65,6 +67,7 @@ export function SidePanel({
   charCount,
   estimatedPages,
 }: SidePanelProps) {
+
   const [activeTab, setActiveTab] = useState<TabId>("text");
 
   return (
@@ -116,14 +119,56 @@ export function SidePanel({
             className="h-full"
           >
             {activeTab === "text" && (
-              <TextEditor
-                text={state.text}
-                onChange={onTextChange}
-                wordCount={wordCount}
-                charCount={charCount}
-                estimatedPages={estimatedPages}
-              />
+              <div className="flex flex-col h-full overflow-hidden">
+                {/* Header info — shown only for boss-notebook / hasHeader templates */}
+                {renderOptions.template.hasHeader && (
+                  <div
+                    className="p-3 border-b border-[var(--border)] space-y-2 flex-shrink-0"
+                    style={{ background: "var(--bg-elevated)" }}
+                  >
+                    <div className="text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-wider">
+                      📋 Notebook Header
+                    </div>
+                    <div className="grid grid-cols-2 gap-2">
+                      {(
+                        [
+                          { field: "name" as const, label: "Nama", placeholder: "Muhamad Dwi Pasha" },
+                          { field: "class" as const, label: "Kelas", placeholder: "9-10" },
+                          { field: "no" as const, label: "No.", placeholder: "15" },
+                          { field: "date" as const, label: "Date", placeholder: "24-08-2021" },
+                        ] as const
+                      ).map(({ field, label, placeholder }) => (
+                        <div key={field}>
+                          <label className="text-[10px] text-[var(--text-muted)]">{label}</label>
+                          <input
+                            type="text"
+                            className="w-full px-2 py-1 rounded text-xs focus:outline-none"
+                            style={{
+                              background: "var(--bg-card)",
+                              border: "1px solid var(--border)",
+                              color: "var(--text-primary)",
+                            }}
+                            value={(state.headerInfo as any)[field] || ""}
+                            onChange={(e) => onHeaderInfoChange?.(field, e.target.value)}
+                            placeholder={placeholder}
+                          />
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+                <div className="flex-1 overflow-hidden">
+                  <TextEditor
+                    text={state.text}
+                    onChange={onTextChange}
+                    wordCount={wordCount}
+                    charCount={charCount}
+                    estimatedPages={estimatedPages}
+                  />
+                </div>
+              </div>
             )}
+
 
             {activeTab === "style" && (
               <div className="sidebar-scroll h-full p-3 space-y-4">

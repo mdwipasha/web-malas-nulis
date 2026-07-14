@@ -152,13 +152,8 @@ export function PreviewPanel({
 
       {/* Preview canvas area */}
       <div
-        className={`flex-1 overflow-auto p-8 preview-area ${
-          isDarkMode ? "preview-dark" : ""
-        }`}
+        className="flex-1 overflow-auto p-8 preview-area"
         style={{
-          background: isDarkMode
-            ? "#050507"
-            : undefined,
           display: "flex",
           alignItems: zoom <= 1 ? "center" : "flex-start",
           justifyContent: zoom <= 1 ? "center" : "flex-start",

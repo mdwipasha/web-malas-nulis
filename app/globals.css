@@ -1,17 +1,43 @@
 @import "tailwindcss";
 
-
-
+/* ============================================================
+   Light mode (default) — clean, bright UI
+   ============================================================ */
 :root {
+  --bg: #f4f4f5;
+  --bg-elevated: #ffffff;
+  --bg-card: #ffffff;
+  --bg-overlay: #e4e4e7;
+  --bg-hover: rgba(0,0,0,0.04);
+  --bg-active: rgba(0,0,0,0.06);
+  --border: rgba(0,0,0,0.10);
+  --border-subtle: rgba(0,0,0,0.05);
+  --text-primary: #09090b;
+  --text-secondary: #3f3f46;
+  --text-muted: #71717a;
+  --accent: #6366f1;
+  --accent-hover: #4f46e5;
+  --accent-muted: rgba(99,102,241,0.12);
+  --success: #16a34a;
+  --warning: #d97706;
+  --danger: #dc2626;
+}
+
+/* ============================================================
+   Dark mode — deep, rich UI
+   ============================================================ */
+html.dark {
   --bg: #09090b;
   --bg-elevated: #111113;
   --bg-card: #18181b;
   --bg-overlay: #1c1c1f;
-  --border: rgba(255,255,255,0.07);
+  --bg-hover: rgba(255,255,255,0.05);
+  --bg-active: rgba(255,255,255,0.08);
+  --border: rgba(255,255,255,0.08);
   --border-subtle: rgba(255,255,255,0.04);
   --text-primary: #fafafa;
   --text-secondary: #a1a1aa;
-  --text-muted: #71717a;
+  --text-muted: #52525b;
   --accent: #6366f1;
   --accent-hover: #818cf8;
   --accent-muted: rgba(99,102,241,0.15);
@@ -19,6 +45,7 @@
   --warning: #f59e0b;
   --danger: #ef4444;
 }
+
 
 * {
   box-sizing: border-box;
@@ -123,8 +150,8 @@ html, body {
 }
 
 .chip:hover {
-  background: rgba(255,255,255,0.05);
-  border-color: rgba(255,255,255,0.1);
+  background: var(--bg-hover);
+  border-color: var(--border);
 }
 
 .chip.active {
@@ -151,7 +178,7 @@ html, body {
 .icon-btn:hover {
   background: var(--bg-overlay);
   color: var(--text-primary);
-  border-color: rgba(255,255,255,0.12);
+  border-color: var(--border);
 }
 
 .icon-btn.active {
@@ -213,9 +240,9 @@ html, body {
 }
 
 .btn-secondary:hover {
-  background: rgba(255,255,255,0.06);
+  background: var(--bg-active);
   color: var(--text-primary);
-  border-color: rgba(255,255,255,0.12);
+  border-color: var(--border);
 }
 
 /* Card */
@@ -334,7 +361,7 @@ html, body {
 }
 
 .effect-toggle:hover {
-  background: rgba(255,255,255,0.04);
+  background: var(--bg-hover);
   color: var(--text-primary);
 }
 
@@ -355,7 +382,7 @@ html, body {
 }
 
 .template-card:hover {
-  border-color: rgba(255,255,255,0.15);
+  border-color: var(--border);
   transform: scale(1.02);
 }
 
@@ -393,7 +420,7 @@ html, body {
   bottom: calc(100% + 8px);
   left: 50%;
   transform: translateX(-50%);
-  background: #27272a;
+  background: var(--bg-card);
   color: var(--text-primary);
   font-size: 11px;
   padding: 4px 8px;
@@ -417,7 +444,7 @@ html, body {
   overflow-y: auto;
   overflow-x: hidden;
   scrollbar-width: thin;
-  scrollbar-color: rgba(255,255,255,0.1) transparent;
+  scrollbar-color: var(--border) transparent;
 }
 
 /* ============================================================
@@ -425,9 +452,8 @@ html, body {
    ============================================================ */
 .preview-area {
   background: 
-    radial-gradient(ellipse at 30% 20%, rgba(99,102,241,0.08) 0%, transparent 60%),
-    radial-gradient(ellipse at 70% 80%, rgba(192,132,252,0.06) 0%, transparent 60%),
-    linear-gradient(180deg, #0f0f12 0%, #09090b 100%);
+    radial-gradient(ellipse at 30% 20%, var(--accent-muted) 0%, transparent 60%),
+    linear-gradient(180deg, var(--bg-elevated) 0%, var(--bg) 100%);
   position: relative;
 }
 
@@ -436,7 +462,7 @@ html, body {
   position: absolute;
   inset: 0;
   background-image: 
-    radial-gradient(circle, rgba(255,255,255,0.015) 1px, transparent 1px);
+    radial-gradient(circle, var(--border-subtle) 1px, transparent 1px);
   background-size: 24px 24px;
   pointer-events: none;
 }

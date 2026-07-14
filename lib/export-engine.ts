@@ -5,8 +5,16 @@
 
 import type { WritingPage, ExportFormat, ExportQuality, RenderOptions } from "@/types";
 import { drawPaper, applyPaperEffects } from "@/lib/paper-engine";
-import { renderHandwritingPage } from "@/lib/handwriting-engine";
-import { DPI_SCALE, PAGE_WIDTH_PX, PAGE_HEIGHT_PX } from "@/utils/canvas-utils";
+import { renderHandwritingPage, renderNotebookHeader } from "@/lib/handwriting-engine";
+import {
+  DPI_SCALE,
+  PAGE_WIDTH_PX,
+  PAGE_HEIGHT_PX,
+  CANVAS_WIDTH_PX,
+  CANVAS_HEIGHT_PX,
+  DESK_PADDING_X,
+  DESK_PADDING_Y,
+} from "@/utils/canvas-utils";
 
 // ============================================================
 // Render a single page to an offscreen canvas
@@ -17,25 +25,37 @@ export async function renderPageToCanvas(
   scale: number = 1
 ): Promise<HTMLCanvasElement> {
   const canvas = document.createElement("canvas");
-  const width = PAGE_WIDTH_PX * scale;
-  const height = PAGE_HEIGHT_PX * scale;
+  const canvasW = CANVAS_WIDTH_PX * scale;
+  const canvasH = CANVAS_HEIGHT_PX * scale;
 
-  canvas.width = width;
-  canvas.height = height;
+  canvas.width = canvasW;
+  canvas.height = canvasH;
 
   const ctx = canvas.getContext("2d", { alpha: false })!;
 
-  // Step 1: Draw paper
-  drawPaper(ctx, options.template, width, height, options.seed);
+  // Step 1: Draw paper (desk + notebook page)
+  drawPaper(ctx, options.template, canvasW, canvasH, options.seed);
 
-  // Step 2: Draw text
+  // Step 2: Render header if template has header
+  if (options.template.hasHeader && options.headerInfo) {
+    await renderNotebookHeader(ctx, options, scale);
+  }
+
+  // Step 3: Draw text (translated to page area)
+  ctx.save();
+  ctx.translate(DESK_PADDING_X * scale, DESK_PADDING_Y * scale);
   await renderHandwritingPage(ctx, options, pageText, scale);
+  ctx.restore();
 
-  // Step 3: Apply effects
-  applyPaperEffects(ctx, options.effects, width, height, options.seed);
+  // Step 4: Apply effects on page area
+  ctx.save();
+  ctx.translate(DESK_PADDING_X * scale, DESK_PADDING_Y * scale);
+  applyPaperEffects(ctx, options.effects, PAGE_WIDTH_PX * scale, PAGE_HEIGHT_PX * scale, options.seed);
+  ctx.restore();
 
   return canvas;
 }
+
 
 // ============================================================
 // Export single page as image
@@ -66,9 +86,9 @@ export async function exportPDF(
   const { jsPDF } = await import("jspdf");
   const scale = quality === "print" ? DPI_SCALE : 1;
 
-  // A4-like dimensions in mm
-  const widthMm = 180;
-  const heightMm = widthMm * (PAGE_HEIGHT_PX / PAGE_WIDTH_PX);
+  // A4-like dimensions in mm — use full canvas ratio (includes desk)
+  const widthMm = 200;
+  const heightMm = widthMm * (CANVAS_HEIGHT_PX / CANVAS_WIDTH_PX);
 
   const pdf = new jsPDF({
     orientation: "portrait",

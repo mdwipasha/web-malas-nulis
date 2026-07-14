@@ -1,6 +1,5 @@
 "use client";
-import React, { useEffect, useMemo, useRef } from "react";
-import { motion } from "framer-motion";
+import React, { useEffect, useMemo } from "react";
 
 import { useAppState } from "@/hooks/useAppState";
 import { useDebouncedValue } from "@/hooks/useDebounce";
@@ -18,6 +17,7 @@ export default function Home() {
   const {
     state,
     updateText,
+    updateHeaderInfo,
     updateStyle,
     updateTemplate,
     updateInk,
@@ -86,6 +86,7 @@ export default function Home() {
       seed: state.seed,
       text: debouncedText,
       customFontUrl: state.customFont?.url,
+      headerInfo: state.headerInfo,
     }),
     [
       currentTemplate,
@@ -95,6 +96,7 @@ export default function Home() {
       state.seed,
       debouncedText,
       state.customFont,
+      state.headerInfo,
     ]
   );
 
@@ -109,6 +111,7 @@ export default function Home() {
         <SidePanel
           state={state}
           onTextChange={updateText}
+          onHeaderInfoChange={updateHeaderInfo}
           onStyleChange={updateStyle}
           onTemplateChange={updateTemplate}
           onInkChange={updateInk}
